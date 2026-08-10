@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Tamanna Jaan · Memory Diary</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        romantic: {
+                            blush: '#FFF0F5',
+                            rose: '#FCE4EC',
+                            burgundy: '#6B2737',
+                            lavender: '#F3E5F5',
+                            cream: '#FFFAF0',
+                            peach: '#FFF3E0',
+                            gold: '#D4AF37',
+                            mint: '#E0F2F1',
+                            deeprose: '#B71C1C'
+                        },
+                        ink: {
+                            DEFAULT: '#2B1B1C',
+                            light: '#4A3B3C',
+                            faded: '#7A6A6B',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Lora', 'sans-serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                        script: ['"Dancing Script"', 'cursive'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 25px -5px rgba(236, 72, 153, 0.1), 0 8px 10px -6px rgba(236, 72, 153, 0.05)',
+                        'photo': '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04), 0 0 15px rgba(255,255,255,0.5)',
+                        'cover': '5px 0px 30px rgba(0,0,0,0.4), inset -5px 0 20px rgba(255,255,255,0.1)',
+                        'card': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025), border 1px solid rgba(255,255,255,0.5)',
+                        'glow': '0 0 20px rgba(252, 231, 243, 0.8)',
+                    },
+                    animation: {
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-med': 'float 6s ease-in-out infinite',
+                        'float-fast': 'float 4s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'sway': 'sway 5s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(5deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', filter: 'drop-shadow(0 0 5px rgba(255,192,203,0.5))' },
+                            '50%': { opacity: '1', filter: 'drop-shadow(0 0 15px rgba(255,192,203,0.8)) transform(scale(1.05))' },
+                        },
+                        sway: {
+                            '0%, 100%': { transform: 'rotate(-5deg)' },
+                            '50%': { transform: 'rotate(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #1a1012;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            background-size: 100px 100px, 150px 150px, auto;
+            color: #2B1B1C;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            touch-action: pan-y;
+        }
+
+        #diary-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #diary-book {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 100vh;
+            height: 100dvh;
+            background-color: #FFFAF0;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        #diary-book::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+            mix-blend-mode: multiply;
+        }
+
+        @media (min-width: 768px) {
+            #diary-book {
+                height: 90vh;
+                border-radius: 16px;
+                border: 8px solid white;
+            }
+        }
+
+        .diary-page {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 80px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(30px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 2rem 1rem 4rem 1rem;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .diary-page { padding: 3rem 4rem; }
+        }
+
+        .diary-page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0) scale(1);
+            z-index: 10;
+        }
+
+        .diary-page.passed {
+            transform: translateX(-30px) scale(0.98);
+        }
+
+        .diary-page::-webkit-scrollbar { width: 6px; }
+        .diary-page::-webkit-scrollbar-track { background: transparent; }
+        .diary-page::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 10px; }
+        .diary-page::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.6); }
+
+        .washi-tape {
+            position: absolute;
+            height: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 10;
+            opacity: 0.9;
+        }
+        .washi-pink { background: rgba(252, 231, 243, 0.8); border: 1px dashed rgba(244, 114, 182, 0.3); }
+        .washi-gold { background: rgba(254, 243, 199, 0.8); border: 1px dotted rgba(212, 175, 55, 0.4); }
+
+        .washi-tape::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 50%, transparent);
+            mix-blend-mode: overlay;
+        }
+
+        /* Front Page Photo Frame */
+        .photo-frame {
+            padding: 12px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1), -5px -5px 15px rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FCE4EC;
+            border-radius: 4px;
+        }
+        .img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+            filter: sepia(0.2) contrast(1.1) brightness(1.05) saturate(1.1);
+        }
+        
+        /* UI FIX: Masonry Gallery Grid to prevent image cutting */
+        .photo-gallery-grid {
+            column-count: 2; /* 2 columns on mobile */
+            column-gap: 12px;
+            width: 100%;
+        }
+        @media (min-width: 640px) {
+            .photo-gallery-grid {
+                column-count: 3; /* 3 columns on larger screens */
+                column-gap: 16px;
+            }
+        }
+        
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 12px;
+            background: white;
+            padding: 8px 8px 30px 8px; /* Polaroid bottom padding */
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: inline-block; /* Crucial for masonry */
+            width: 100%;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        @media (min-width: 640px) {
+            .gallery-item {
+                margin-bottom: 16px;
+            }
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        
+        .gallery-photo {
+            width: 100%;
+            height: auto; /* Natural height, NO cutting */
+            object-fit: contain;
+            border-radius: 2px;
+            cursor: pointer;
+            display: block;
+        }
+
+        .fallback-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Dancing Script', cursive;
+            color: #b91c1c;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #FFE4E1, #FFF0F5);
+            border: 2px dashed rgba(244, 114, 182, 0.4);
+            border-radius: 4px;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .diary-page.active .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #cover-section { transition: opacity 1s ease; }
+        #diary-cover { transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 1s 0.4s ease; transform-origin: left center; }
+        #diary-cover.open { transform: rotateY(-110deg) scale(0.95); opacity: 0; pointer-events: none; }
+
+        /* Gift Animation */
+        .gift-lid { transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .gift-box-container.opened .gift-lid { transform: translateY(-50px) rotate(-12deg); }
+
+        .gift-note {
+            transform: translate(-50%, 30px) scale(0.8);
+            opacity: 0;
+            transition: all 0.7s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .gift-box-container.opened .gift-note {
+            transform: translate(-50%, -100px) scale(1.05);
+            opacity: 1;
+            z-index: 50;
+        }
+
+        .fact-card { perspective: 1000px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        .fact-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+        .fact-card.flipped .fact-card-inner { transform: rotateY(180deg); }
+        .fact-card-front, .fact-card-back {
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1.5rem; border-radius: 12px;
+        }
+        .fact-card-back { transform: rotateY(180deg); }
+
+        .timeline-line { height: 0; transition: height 2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .diary-page.active .timeline-line { height: 100%; }
+
+        .envelope-flap { transform-origin: top; transition: transform 0.7s ease-in-out; }
+        .envelope.open .envelope-flap { transform: rotateX(180deg); z-index: 0; }
+        .envelope-letter {
+            height: 65vh; max-height: 400px; bottom: 8px;
+            transform: translateY(20px);
+            transition: transform 0.9s 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease-out;
+            opacity: 0;
+        }
+        .envelope.open .envelope-letter {
+            transform: translateY(55px) scale(1.02);
+            opacity: 1;
+            z-index: 50;
+        }
+        .envelope-label { transition: opacity 0.4s ease; }
+        .envelope.open .envelope-label { opacity: 0; pointer-events: none; }
+
+        #lightbox { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: opacity 0.4s ease; }
+        .particle { position: absolute; pointer-events: none; will-change: transform, opacity; z-index: 100; }
+
+        #diary-nav {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(to top, rgba(255,250,240,0.95) 0%, rgba(255,250,240,0.8) 60%, transparent 100%);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 50;
+        }
+
+        .nav-btn {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #B71C1C;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(183, 28, 28, 0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: #FFF0F5;
+            border-color: rgba(183, 28, 28, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.15);
+        }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .deco-icon { position: absolute; opacity: 0.4; pointer-events: none; }
+
+        #countdown-section {
+            font-family: 'Playfair Display', serif;
+        }
+        .countdown-digit {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 60px;
+            padding: 0.4rem 0.2rem;
+            border-radius: 14px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            font-size: 2rem;
+        }
+        @media (min-width: 640px) {
+            .countdown-digit {
+                min-width: 70px;
+                font-size: 2.5rem;
+                padding: 0.5rem 0.2rem;
+            }
+        }
+        #prank-open-btn {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        #prank-open-btn:active { transform: scale(0.95); }
+
+        .tap-counter { font-size: 0.7rem; opacity: 0.5; letter-spacing: 0.1em; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body class="text-ink selection:bg-pink-300 selection:text-white">
+
+    <!-- Music (URL encoded properly just in case) -->
+    <audio id="bg-music" loop preload="none">
+        <source src="assets/Pal%20Pal(KoshalWorld.Com).mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" class="fixed top-6 right-6 z-[60] p-3 bg-white/80 backdrop-blur-md border border-pink-200 rounded-full shadow-soft opacity-0 pointer-events-none transition-all duration-500 hover:scale-110 active:scale-95 text-pink-600" aria-label="Toggle Background Music">
+        <i data-lucide="music" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Lightbox for Photos -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-ink/90 hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity" role="dialog" aria-modal="true">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-400 rounded-full bg-white/10 hover:bg-white/20">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <div id="lightbox-content" class="w-full max-w-4xl max-h-[85vh] flex flex-col items-center justify-center relative">
+            <i data-lucide="sparkles" class="absolute -top-10 -left-10 w-8 h-8 text-yellow-300 animate-pulse-glow hidden md:block"></i>
+            <i data-lucide="heart" class="absolute -bottom-10 -right-10 w-8 h-8 text-pink-400 fill-pink-400 animate-float-slow hidden md:block"></i>
+            <p id="lightbox-caption" class="font-script text-3xl md:text-5xl text-pink-100 mt-6 text-center max-w-2xl px-4 drop-shadow-md"></p>
+        </div>
+    </div>
+
+    <!-- Cover Section with Countdown & Prank -->
+    <section id="cover-section" class="fixed inset-0 z-[70] flex items-center justify-center bg-gradient-to-br from-[#1a1012] via-[#3a1c26] to-[#1a1012] perspective-[1500px]">
+
+        <!-- Floating particles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <i data-lucide="heart" class="absolute top-[20%] left-[15%] w-4 h-4 text-pink-500/30 animate-float-slow"></i>
+            <i data-lucide="star" class="absolute top-[60%] right-[20%] w-3 h-3 text-yellow-500/40 animate-float-med"></i>
+            <i data-lucide="sparkles" class="absolute bottom-[20%] left-[30%] w-5 h-5 text-purple-400/30 animate-pulse-glow"></i>
+        </div>
+
+        <div id="diary-cover" class="relative w-[min(90vw,420px)] aspect-[3/4] bg-gradient-to-br from-[#5E1224] to-[#3B0918] shadow-cover rounded-r-xl border-l-[12px] border-[#1f030a] flex flex-col items-center justify-center p-6 text-romantic-cream text-center overflow-hidden cursor-pointer ring-1 ring-white/10">
+
+            <div class="absolute inset-0 opacity-20 mix-blend-color-dodge" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+
+            <div class="absolute inset-4 border-2 border-romantic-gold/30 rounded-lg pointer-events-none">
+                <div class="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-romantic-gold/60"></div>
+                <div class="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-romantic-gold/60"></div>
+                <div class="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-romantic-gold/60"></div>
+                <div class="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-romantic-gold/60"></div>
+            </div>
+
+            <i data-lucide="flower-2" class="w-8 h-8 text-pink-300 mb-3 opacity-80 animate-spin-slow"></i>
+
+            <!-- Countdown Section -->
+            <div id="countdown-section" class="w-full mb-3">
+                <p class="font-script text-sm text-pink-200/80 tracking-widest mb-2">15 AUG · 12:00 AM</p>
+                <div id="countdown-digits" class="flex justify-center gap-2 font-serif text-romantic-gold">
+                    <span class="countdown-digit" id="cd-h">00</span>
+                    <span class="text-pink-300/50 text-2xl self-center">:</span>
+                    <span class="countdown-digit" id="cd-m">00</span>
+                    <span class="text-pink-300/50 text-2xl self-center">:</span>
+                    <span class="countdown-digit" id="cd-s">00</span>
+                </div>
+                <p class="font-sans text-[10px] tracking-[0.2em] text-pink-300/40 mt-1 uppercase">mere jaan ke liye</p>
+                <div id="tap-counter" class="tap-counter text-pink-300/30 mt-1">tap 0/10</div>
+            </div>
+
+            <button id="prank-open-btn" class="relative z-10 px-6 py-2.5 bg-transparent border border-romantic-gold/60 text-romantic-gold font-serif tracking-widest text-xs uppercase hover:bg-romantic-gold hover:text-[#3B0918] transition-all duration-500 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-romantic-gold focus:ring-offset-2 focus:ring-offset-[#3B0918] mt-2">
+                ✦ Open Diary ✦
+            </button>
+        </div>
+    </section>
+
+    <div id="diary-wrapper">
+        <div id="diary-book">
+
+            <!-- Page 1: Happy Birthday -->
+            <div class="diary-page flex flex-col items-center pt-10 pb-32 bg-gradient-to-br from-pink-50 via-white to-rose-50" id="page-1">
+                <i data-lucide="sparkles" class="deco-icon text-pink-300 w-6 h-6 top-10 left-10 animate-pulse-glow"></i>
+                <i data-lucide="heart" class="deco-icon text-rose-300 w-8 h-8 top-20 right-10 animate-float-slow"></i>
+                <i data-lucide="star" class="deco-icon text-yellow-300 w-5 h-5 bottom-40 left-8 animate-float-med"></i>
+                <div class="fade-in-up text-center w-full z-10" style="transition-delay: 100ms;">
+                    <p class="font-script text-3xl sm:text-4xl md:text-5xl text-pink-500 mb-4 transform -rotate-2">Janamdin Mubarak...</p>
+                    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl text-romantic-deeprose leading-none mb-2 break-words drop-shadow-sm">MERI<br>MOHABBAT</h2>
+                    <div class="inline-flex items-center gap-3 mt-6 mb-8">
+                        <div class="w-10 h-[1px] bg-pink-300"></div>
+                        <p class="font-sans font-medium text-xs sm:text-sm tracking-[0.2em] text-pink-600/80">15 AUGUST</p>
+                        <div class="w-10 h-[1px] bg-pink-300"></div>
+                    </div>
+                </div>
+                <div class="w-full max-w-md fade-in-up text-center text-lg sm:text-xl font-handwriting leading-relaxed text-ink-light space-y-4 mb-14 z-10" style="transition-delay: 300ms;">
+                    <p>"Tum mere har lafz ki shuruaat aur meri har dua ka anjaam ho."</p>
+                    <p class="text-pink-600/70 text-sm font-sans italic mt-2">Ye din sirf tumhara hai, aur meri saari umr tumhari.</p>
+                </div>
+                <div class="w-full flex justify-center relative fade-in-up mb-16 z-10" style="transition-delay: 500ms;">
+                    <div class="photo-frame transform rotate-3 w-[75%] max-w-[260px] bg-white relative">
+                        <div class="absolute -top-4 -right-4 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center shadow-sm transform rotate-12 border border-yellow-200 z-20">
+                            <i data-lucide="crown" class="w-6 h-6 text-yellow-500"></i>
+                        </div>
+                        <div class="washi-tape washi-pink w-28 -top-3 left-1/2 -translate-x-1/2 -rotate-2"></div>
+                        <div class="img-wrapper aspect-[4/5] rounded overflow-hidden">
+                            <img src="assets/1 (1).jpeg" alt="Memory" class="lightbox-trigger object-cover w-full h-full" data-caption="Meri duniya tumse shuru, tumpe khatam." onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                            <div class="fallback-placeholder hidden">Tamanna ❤️</div>
+                        </div>
+                        <p class="font-script text-2xl text-center mt-4 text-pink-500">meri zindagi...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Gift -->
+            <div class="diary-page flex flex-col items-center pt-10 pb-32 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50" id="page-2">
+                <i data-lucide="gift" class="deco-icon text-purple-200 w-10 h-10 top-12 left-8 animate-float-med rotate-12"></i>
+                <i data-lucide="sparkles" class="deco-icon text-pink-300 w-6 h-6 bottom-32 right-12 animate-pulse-glow"></i>
+                <div class="fade-in-up w-full max-w-md text-center my-auto z-10">
+                    <h2 class="font-serif text-3xl sm:text-4xl text-purple-900 mb-4 px-2">Ek chhota sa tohfa...</h2>
+                    <p class="font-script text-2xl text-purple-500 mb-12">Isey pyaar se kholna</p>
+                    <button id="gift-interaction" class="relative w-full h-72 mx-auto cursor-pointer group gift-box-container focus:outline-none rounded-xl mt-8" aria-label="Open birthday gift box">
+                        <div class="gift-note absolute top-0 left-1/2 w-[85%] max-w-[260px] bg-white rounded-lg border border-purple-100 shadow-soft p-6 text-center">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                                <i data-lucide="heart" class="w-6 h-6 text-pink-400 fill-pink-400"></i>
+                            </div>
+                            <p class="font-script text-3xl text-purple-700 mb-3 mt-2">Surprise, Jaan! ✨</p>
+                            <p class="font-handwriting text-xl text-ink-light leading-relaxed">"Kuch tohfe haathon se nahi, rooh se diye jaate hain. Mera sabse bada gift toh tum khud ho."</p>
+                        </div>
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-36 sm:w-44 h-32 sm:h-36 bg-gradient-to-br from-pink-300 to-rose-400 rounded-md shadow-xl z-20 overflow-hidden border border-pink-200">
+                            <div class="absolute left-1/2 -translate-x-1/2 w-8 h-full bg-gradient-to-b from-purple-200 to-purple-300 shadow-sm"></div>
+                            <div class="absolute top-1/2 left-0 w-full h-8 -translate-y-1/2 bg-gradient-to-r from-purple-200 to-purple-300 shadow-sm"></div>
+                        </div>
+                        <div class="gift-lid absolute bottom-[124px] sm:bottom-[140px] left-1/2 -translate-x-1/2 w-40 sm:w-48 h-10 sm:h-12 bg-gradient-to-br from-pink-400 to-rose-500 rounded-md shadow-lg z-30 flex justify-center border border-pink-300 group-hover:-translate-y-2 transition-transform">
+                            <div class="w-8 h-full bg-purple-200 shadow-sm"></div>
+                            <div class="absolute -top-6 sm:-top-8 w-12 sm:w-16 h-8 sm:h-10 border-4 border-purple-300 rounded-[50%] -translate-x-4 sm:-translate-x-5 skew-x-12 shadow-sm bg-purple-100/50"></div>
+                            <div class="absolute -top-6 sm:-top-8 w-12 sm:w-16 h-8 sm:h-10 border-4 border-purple-300 rounded-[50%] translate-x-4 sm:translate-x-5 -skew-x-12 shadow-sm bg-purple-100/50"></div>
+                        </div>
+                        <p id="gift-hint" class="absolute -bottom-12 left-1/2 -translate-x-1/2 font-sans text-sm tracking-widest text-purple-400/60 whitespace-nowrap transition-opacity duration-300 uppercase">Tap to unwrap</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 3: The Date -->
+            <div class="diary-page flex flex-col items-center pt-10 pb-32 bg-gradient-to-br from-yellow-50 via-orange-50/30 to-amber-50" id="page-3">
+                <i data-lucide="sun" class="deco-icon text-amber-200 w-12 h-12 top-10 right-10 animate-spin-slow"></i>
+                <i data-lucide="infinity" class="deco-icon text-amber-300/40 w-16 h-16 bottom-20 left-10"></i>
+                <div class="relative pl-8 sm:pl-12 border-l-2 border-amber-200 fade-in-up mx-2 sm:mx-4 max-w-lg w-full my-auto z-10">
+                    <i data-lucide="flower-2" class="absolute -left-[17px] top-0 w-8 h-8 text-amber-500 bg-yellow-50 rounded-full"></i>
+                    <span class="inline-block px-4 py-1.5 bg-gradient-to-r from-amber-100 to-amber-50 rounded-full font-sans text-xs font-semibold tracking-widest text-amber-700 mb-6 mt-2 shadow-sm">MUKAMMAL ISHQ</span>
+                    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl text-amber-900 tracking-tight mb-8 break-words text-shadow-sm">21 / 11 / 25</h2>
+                    <div class="font-handwriting text-xl sm:text-2xl text-ink-light space-y-6">
+                        <p class="fade-in-up" style="transition-delay: 200ms;">"Wo lamha jab waqt theher gaya, aur meri kismat mukammal ho gayi."</p>
+                        <p class="fade-in-up" style="transition-delay: 400ms;">Jis pal maine tumhe ring pehnayi, duniya ki saari khushiyan us ek lamhe mein simat aayi thi.</p>
+                    </div>
+                    <div class="mt-12 p-6 bg-white rounded-xl shadow-photo inline-block transform rotate-2 border border-amber-100 fade-in-up relative group hover:rotate-0 transition-transform" style="transition-delay: 600ms;">
+                        <div class="washi-tape washi-gold w-16 -top-3 left-4 rotate-3"></div>
+                        <p class="font-script text-3xl text-amber-600">Engagement Day 💍</p>
+                        <p class="font-handwriting text-xl text-ink/70 mt-2">Hamesha ke liye ek ho gaye...</p>
+                        <i data-lucide="sparkles" class="absolute -bottom-2 -right-2 text-amber-400 w-5 h-5"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Things I Like -->
+            <div class="diary-page flex flex-col pt-8 pb-32 bg-gradient-to-b from-slate-50 via-rose-50/50 to-indigo-50/30" id="page-4">
+                <h2 class="font-serif text-3xl sm:text-4xl text-ink mb-12 text-center fade-in-up z-10">Tumhari Wo Baatein...</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative px-2 max-w-2xl mx-auto w-full z-10">
+                    <div class="bg-white p-6 rounded-2xl shadow-card transform -rotate-1 fade-in-up relative border-t-4 border-pink-300 hover:shadow-lg transition-shadow" style="transition-delay: 100ms;">
+                        <div class="absolute -top-3 -right-3 w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="eye" class="w-4 h-4 text-pink-500"></i>
+                        </div>
+                        <h3 class="font-serif text-xl sm:text-2xl text-pink-700 mb-3">Tumhari Aankhein</h3>
+                        <p class="font-handwriting text-xl text-ink-light">"Tumhari aankhon ka wo thehraav, jisme meri saari duniya simat jaati hai."</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-card transform rotate-2 fade-in-up relative md:mt-8 border-t-4 border-amber-300 hover:shadow-lg transition-shadow" style="transition-delay: 200ms;">
+                        <div class="absolute -top-3 -left-3 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="smile" class="w-4 h-4 text-amber-500"></i>
+                        </div>
+                        <h3 class="font-serif text-xl sm:text-2xl text-amber-700 mb-3">Tumhari Muskurahat</h3>
+                        <p class="font-handwriting text-xl text-ink-light">"Tumhari muskurahat, jo mere andheron ka waahid ujala hai."</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-card transform rotate-1 fade-in-up relative border-t-4 border-emerald-300 hover:shadow-lg transition-shadow" style="transition-delay: 300ms;">
+                        <div class="absolute -top-3 -right-3 w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="heart-handshake" class="w-4 h-4 text-emerald-500"></i>
+                        </div>
+                        <h3 class="font-serif text-xl sm:text-2xl text-emerald-700 mb-3">Tumhari Fikar</h3>
+                        <p class="font-handwriting text-xl text-ink-light">"Tumhari wo fikar, jo bina kahe mere saare dard baant leti hai."</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-card transform -rotate-2 fade-in-up relative md:mt-8 border-t-4 border-purple-300 hover:shadow-lg transition-shadow" style="transition-delay: 400ms;">
+                        <div class="absolute -top-3 -left-3 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="music-2" class="w-4 h-4 text-purple-500"></i>
+                        </div>
+                        <h3 class="font-serif text-xl sm:text-2xl text-purple-700 mb-3">Tumhari Baatein</h3>
+                        <p class="font-handwriting text-xl text-ink-light">"Tumhari baatein, jo mere zehen mein sangeet ki tarah gूंjti hain."</p>
+                    </div>
+                    <div class="md:col-span-2 flex justify-center fade-in-up mt-6" style="transition-delay: 500ms;">
+                        <div class="bg-gradient-to-r from-rose-100 to-pink-100 p-8 rounded-3xl shadow-soft transform rotate-1 w-full max-w-lg border border-pink-200 relative text-center">
+                            <i data-lucide="sparkles" class="absolute top-4 left-4 text-pink-400 w-5 h-5"></i>
+                            <i data-lucide="sparkles" class="absolute bottom-4 right-4 text-pink-400 w-5 h-5"></i>
+                            <h3 class="font-script text-3xl sm:text-4xl text-rose-700 mb-4 drop-shadow-sm">Sirf Tum</h3>
+                            <p class="font-serif italic text-lg sm:text-xl text-rose-900/80">"Kyunki tumhare siwa mujhe ab kuch aur manzoor nahi."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Facts (Fixed Background Class & Z-Index Issue) -->
+            <div class="diary-page flex flex-col pt-8 pb-32 bg-gradient-to-br from-romantic-mint via-white to-emerald-50" id="page-5">
+                <h2 class="font-script text-4xl sm:text-5xl text-emerald-800 mb-2 text-center drop-shadow-sm fade-in-up z-10">Dil Ki Baatein</h2>
+                <p class="text-center font-sans text-xs tracking-widest text-emerald-600/60 mb-10 fade-in-up uppercase">Tap cards to reveal</p>
+                <!-- Added pb-10 to grid to prevent overlapping issues on last card flip -->
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-5 px-2 max-w-3xl mx-auto w-full z-10 pb-10">
+                    <button class="fact-card w-full aspect-square fade-in-up" aria-expanded="false" style="transition-delay: 100ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-pink-50 shadow-md border border-pink-100 flex flex-col justify-center items-center relative" style="transform: rotate(-2deg)">
+                                <i data-lucide="flower-2" class="w-8 h-8 text-pink-300 mb-2"></i>
+                                <span class="font-serif italic text-2xl text-pink-400">Ek</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-2 border-pink-200 text-center shadow-lg">
+                                <p class="font-handwriting text-xl sm:text-2xl text-ink leading-tight">"Tumhara wujood meri zindagi ki sabse haseen sachai hai."</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="fact-card w-full aspect-square fade-in-up" aria-expanded="false" style="transition-delay: 200ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-purple-50 shadow-md border border-purple-100 flex flex-col justify-center items-center relative" style="transform: rotate(2deg)">
+                                <i data-lucide="heart-pulse" class="w-8 h-8 text-purple-300 mb-2"></i>
+                                <span class="font-serif italic text-2xl text-purple-400">Do</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-2 border-purple-200 text-center shadow-lg">
+                                <p class="font-handwriting text-xl sm:text-2xl text-ink leading-tight">"Tumhari dhadkan meri saanson ki aakhiri manzil hai."</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="fact-card w-full aspect-square fade-in-up" aria-expanded="false" style="transition-delay: 300ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-amber-50 shadow-md border border-amber-100 flex flex-col justify-center items-center relative" style="transform: rotate(-1deg)">
+                                <i data-lucide="ear" class="w-8 h-8 text-amber-300 mb-2"></i>
+                                <span class="font-serif italic text-2xl text-amber-400">Teen</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-2 border-amber-200 text-center shadow-lg">
+                                <p class="font-handwriting text-xl sm:text-2xl text-ink leading-tight">"Tumhaari khamoshi mein bhi mujhe awaaz sunai deti hai."</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="fact-card w-full aspect-square fade-in-up" aria-expanded="false" style="transition-delay: 400ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-blue-50 shadow-md border border-blue-100 flex flex-col justify-center items-center relative" style="transform: rotate(3deg)">
+                                <i data-lucide="sunrise" class="w-8 h-8 text-blue-300 mb-2"></i>
+                                <span class="font-serif italic text-2xl text-blue-400">Chaar</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-2 border-blue-200 text-center shadow-lg">
+                                <p class="font-handwriting text-xl sm:text-2xl text-ink leading-tight">"Har naye din meri mohabbat aur bhi gehari ho jati hai."</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="fact-card w-full aspect-square fade-in-up" aria-expanded="false" style="transition-delay: 500ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-rose-50 shadow-md border border-rose-100 flex flex-col justify-center items-center relative" style="transform: rotate(-3deg)">
+                                <i data-lucide="image" class="w-8 h-8 text-rose-300 mb-2"></i>
+                                <span class="font-serif italic text-2xl text-rose-400">Paanch</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-2 border-rose-200 text-center shadow-lg">
+                                <p class="font-handwriting text-xl sm:text-2xl text-ink leading-tight">"Tum mere har adhoore khwaab ki tasweer ho."</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="fact-card w-full aspect-square fade-in-up" aria-expanded="false" style="transition-delay: 600ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-teal-50 shadow-md border border-teal-100 flex flex-col justify-center items-center relative" style="transform: rotate(1deg)">
+                                <i data-lucide="hourglass" class="w-8 h-8 text-teal-300 mb-2"></i>
+                                <span class="font-serif italic text-2xl text-teal-400">Chhe</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-2 border-teal-200 text-center shadow-lg">
+                                <p class="font-handwriting text-xl sm:text-2xl text-ink leading-tight">"Tumhare saath bitaya har lamha ek sadi jaisa keemti hai."</p>
+                            </div>
+                        </div>
+                    </button>
+                    <!-- Removed negative margin, added specific padding to prevent clip issues -->
+                    <button class="fact-card w-full aspect-square fade-in-up lg:col-span-3 col-span-2 lg:w-1/3 lg:mx-auto z-20" aria-expanded="false" style="transition-delay: 700ms;">
+                        <div class="fact-card-inner">
+                            <div class="fact-card-front bg-gradient-to-br from-pink-400 to-rose-500 shadow-lg flex flex-col justify-center items-center relative rounded-2xl" style="transform: rotate(0deg)">
+                                <i data-lucide="star" class="w-10 h-10 text-white mb-2 fill-white animate-pulse"></i>
+                                <span class="font-script text-3xl text-white">Saakhiri</span>
+                            </div>
+                            <div class="fact-card-back bg-white border-4 border-rose-400 text-center shadow-xl rounded-2xl">
+                                <p class="font-script text-3xl sm:text-4xl text-rose-600 leading-tight px-2">"Mai khud ko bhool sakta hu, magar tumhe nahi. ❤️"</p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 6: Photo Gallery (14 Photos with Masonry UI) -->
+            <div class="diary-page flex flex-col pt-8 pb-32 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50" id="page-6">
+                <h2 class="font-serif text-3xl sm:text-4xl text-rose-900 mb-3 text-center fade-in-up z-10">Yaadon Ke Khazane 📸</h2>
+                <p class="font-script text-xl text-rose-500 text-center mb-6 fade-in-up">14 khoobsurat lamhe...</p>
+                <div class="w-full max-w-4xl mx-auto z-10 fade-in-up" style="transition-delay: 200ms;">
+                    <!-- Gallery container with CSS columns -->
+                    <div id="gallery-container" class="photo-gallery-grid"></div>
+                </div>
+            </div>
+
+            <!-- Page 7: Timeline -->
+            <div class="diary-page flex flex-col pt-10 pb-32 bg-gradient-to-b from-indigo-50/50 to-purple-50" id="page-7">
+                <h2 class="font-script text-4xl sm:text-5xl text-purple-800 mb-12 text-center fade-in-up drop-shadow-sm z-10">Humara Safar</h2>
+                <div class="relative w-full max-w-md mx-auto px-4 z-10">
+                    <div class="absolute left-8 top-2 bottom-2 w-1 bg-gradient-to-b from-purple-200 via-pink-300 to-rose-200 rounded-full">
+                        <div class="timeline-line w-full bg-gradient-to-b from-purple-500 via-pink-500 to-rose-500 rounded-full shadow-[0_0_10px_rgba(236,72,153,0.5)]"></div>
+                    </div>
+                    <div class="space-y-12">
+                        <div class="relative flex items-start w-full fade-in-up group" style="transition-delay: 100ms;">
+                            <div class="absolute left-[18px] top-1 w-6 h-6 rounded-full bg-white border-4 border-purple-400 transform -translate-x-1/2 z-10 shadow-md group-hover:scale-125 transition-transform flex items-center justify-center">
+                                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            </div>
+                            <div class="w-full pl-12 text-left">
+                                <h4 class="font-serif font-bold text-lg text-purple-900 tracking-wide">SHURUAAT</h4>
+                                <p class="font-handwriting text-2xl text-ink/70 mt-1">"Khwaabon se nikal kar hakikat banne tak."</p>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start w-full fade-in-up group" style="transition-delay: 300ms;">
+                            <div class="absolute left-[18px] top-1 w-6 h-6 rounded-full bg-white border-4 border-pink-400 transform -translate-x-1/2 z-10 shadow-md group-hover:scale-125 transition-transform flex items-center justify-center">
+                                <i data-lucide="heart" class="w-3 h-3 text-pink-500 fill-pink-500"></i>
+                            </div>
+                            <div class="w-full pl-12 text-left">
+                                <h4 class="font-serif font-bold text-lg text-pink-900 tracking-wide">MULAQATEIN</h4>
+                                <p class="font-handwriting text-2xl text-ink/70 mt-1">"Sirf 3 mulaqatein... par sadiyon ka sukoon."</p>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start w-full fade-in-up group" style="transition-delay: 500ms;">
+                            <div class="absolute left-[18px] top-1 w-8 h-8 rounded-full bg-gradient-to-r from-amber-200 to-yellow-400 border-2 border-white transform -translate-x-1/2 z-10 shadow-lg group-hover:scale-110 transition-transform flex items-center justify-center animate-pulse-glow">
+                                <i data-lucide="gem" class="w-4 h-4 text-amber-900"></i>
+                            </div>
+                            <div class="w-full pl-14 text-left">
+                                <h4 class="font-serif font-bold text-xl text-amber-600 tracking-wide">21 . 11 . 25</h4>
+                                <p class="font-script text-3xl text-amber-700 mt-1 drop-shadow-sm">Engagement Day 💍</p>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start w-full fade-in-up group" style="transition-delay: 700ms;">
+                            <div class="absolute left-[18px] top-1 w-8 h-8 rounded-full bg-gradient-to-r from-rose-400 to-pink-500 border-2 border-white transform -translate-x-1/2 z-10 shadow-lg group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="cake" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="w-full pl-14 text-left">
+                                <h4 class="font-serif font-bold text-xl text-rose-600 tracking-wide">AAJ KA DIN</h4>
+                                <p class="font-script text-3xl text-rose-500 mt-1">Tumhara Janamdin 🎉</p>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start w-full fade-in-up group" style="transition-delay: 900ms;">
+                            <div class="absolute left-[18px] top-1 w-6 h-6 rounded-full bg-transparent border-2 border-dashed border-purple-300 transform -translate-x-1/2 z-10 flex items-center justify-center">
+                                <i data-lucide="infinity" class="w-3 h-3 text-purple-400"></i>
+                            </div>
+                            <div class="w-full pl-12 text-left opacity-60">
+                                <h4 class="font-sans text-sm font-semibold tracking-widest text-ink/50 uppercase">Hamesha Ke Liye</h4>
+                                <p class="font-handwriting text-2xl text-ink/50 mt-1">"Ye kahani toh abhi shuru hui hai..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 8: The Letter -->
+            <div class="diary-page flex flex-col justify-end items-center pt-8 pb-24 bg-gradient-to-b from-[#fdfbfb] to-[#ebedee]" id="page-8">
+                <i data-lucide="feather" class="deco-icon text-gray-300 w-12 h-12 top-20 right-10 animate-float-slow"></i>
+                <i data-lucide="heart" class="deco-icon text-rose-200 w-6 h-6 top-32 left-12 animate-float-fast"></i>
+                <div class="w-full max-w-[360px] mx-auto flex flex-col items-center mt-auto mb-4 z-10">
+                    <h2 class="font-script text-4xl text-ink mb-10 text-center fade-in-up drop-shadow-sm">Meri Jaan Ke Naam...</h2>
+                    <div id="envelope-container" class="envelope relative w-full aspect-[1.4/1] bg-gradient-to-br from-[#EAE0D5] to-[#D6CCC2] shadow-photo rounded-sm fade-in-up delay-100">
+                        <div class="envelope-label absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm px-6 py-3 border border-amber-900/10 shadow-md z-20 rounded">
+                            <p class="font-serif text-xs font-bold tracking-widest text-amber-900 mb-1 text-center whitespace-nowrap">TAMANNA</p>
+                            <div class="w-full h-px bg-amber-900/20 mb-2"></div>
+                            <p class="font-handwriting text-lg text-amber-700 text-center whitespace-nowrap">dil ki dhadkan</p>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-[60%] bg-[#D6CCC2] z-10 shadow-[0_-2px_5px_rgba(0,0,0,0.05)]" style="clip-path: polygon(0 100%, 50% 0, 100% 100%);"></div>
+                        <div class="absolute top-0 bottom-0 left-0 w-[60%] bg-[#E0D6CB] z-10 shadow-[2px_0_5px_rgba(0,0,0,0.05)]" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
+                        <div class="absolute top-0 bottom-0 right-0 w-[60%] bg-[#E0D6CB] z-10 shadow-[-2px_0_5px_rgba(0,0,0,0.05)]" style="clip-path: polygon(100% 0, 0 50%, 100% 100%);"></div>
+                        <div class="envelope-letter absolute left-2 sm:left-4 right-2 sm:right-4 bg-[#FFFAF0] shadow-md border border-amber-900/10 p-5 sm:p-6 z-0 overflow-y-auto pb-12 custom-scrollbar rounded-sm bg-[url('data:image/svg+xml,%3Csvg width=%2220%22 height=%2220%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M0 19h20v1H0z%22 fill=%22%23e5e7eb%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E')]">
+                            <p class="font-handwriting text-3xl text-rose-800 mb-4">Meri Jaan Tamanna,</p>
+                            <div class="font-handwriting text-xl sm:text-2xl leading-relaxed text-ink/80 space-y-4">
+                                <p>Aaj tumhara din hai, aur mera dil bas shukrana ada kar raha hai us khuda ka jisne tumhe banaya.</p>
+                                <p>Humari mulaqatein bhale hi kam rahi hon, magar mere rooh ke har hisse par tumhara hi raaj hai. Tumhari wo pyari si baatein, tumhari fikar, sab mujhe poora karte hain.</p>
+                                <p>21 tareekh ko jab humne ek doosre ka hath thama, wahi wo lamha tha jab maine apni puri zindagi tumhare naam kar di thi. Tum meri har dua ka asar ho.</p>
+                                <p>Aane wala har saal, har lamha tumhare liye bepanah khushiyan lekar aaye. Main hamesha tumhare saath rahunga, har kadam par.</p>
+                            </div>
+                            <p class="font-script text-3xl text-rose-600 mt-6 mb-2">Janamdin Mubarak Mere jaan  ❤️</p>
+                            <p class="font-handwriting text-2xl text-ink text-right">— Apka suhail...</p>
+                        </div>
+                        <div class="envelope-flap absolute top-0 left-0 right-0 h-[65%] bg-[#CFC4B8] z-30 drop-shadow-lg border-b border-white/20" style="clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+                        <div class="absolute top-[50%] left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-red-700 to-rose-900 rounded-full z-40 flex items-center justify-center shadow-md opacity-100 transition-all duration-500 envelope-seal transform -translate-y-1/2 border border-red-500/30">
+                            <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center">
+                                <i data-lucide="heart" class="w-5 h-5 text-white/80 fill-white/80"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="open-letter-btn" class="mt-14 px-8 py-3 bg-gradient-to-r from-amber-700 to-amber-900 text-white font-serif tracking-widest text-sm rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all fade-in-up delay-300">
+                        Khat Kholo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 9: Make a Wish -->
+            <div class="diary-page flex flex-col justify-center items-center bg-gradient-to-t from-orange-100 via-rose-50 to-pink-50" id="page-9">
+                <i data-lucide="star" class="absolute top-20 left-20 w-6 h-6 text-yellow-400 animate-pulse-glow z-0"></i>
+                <i data-lucide="star" class="absolute top-32 right-16 w-4 h-4 text-yellow-300 animate-float-slow z-0"></i>
+                <i data-lucide="sparkles" class="absolute bottom-40 left-10 w-8 h-8 text-pink-300 animate-pulse-glow z-0"></i>
+                <div id="cake-section" class="text-center w-full px-4 transition-opacity duration-1000 z-10">
+                    <h2 class="font-script text-5xl sm:text-6xl text-rose-600 mb-4 fade-in-up drop-shadow-md">Ek Dua Maango...</h2>
+                    <p class="font-handwriting text-2xl text-ink/60 mb-12 fade-in-up delay-100">"Apni aankhein band karo, aur dil ki sunein"</p>
+                    <div class="relative w-56 h-56 mx-auto mb-16 fade-in-up delay-200">
+                        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[120%] h-8 bg-gray-200 rounded-full shadow-lg border-b-4 border-gray-300"></div>
+                        <div class="absolute bottom-0 w-full h-24 bg-gradient-to-b from-[#FFF5EE] to-[#FFE4E1] rounded-t-xl border-b-4 border-rose-200/50 shadow-md">
+                            <div class="absolute -top-1 w-full h-6 bg-pink-100 rounded-full blur-[1px]"></div>
+                            <div class="absolute top-0 left-[10%] w-[15%] h-10 bg-pink-100 rounded-b-full shadow-sm"></div>
+                            <div class="absolute top-0 left-[35%] w-[12%] h-7 bg-pink-100 rounded-b-full shadow-sm"></div>
+                            <div class="absolute top-0 left-[60%] w-[18%] h-12 bg-pink-100 rounded-b-full shadow-sm"></div>
+                            <div class="absolute top-0 right-[5%] w-[12%] h-8 bg-pink-100 rounded-b-full shadow-sm"></div>
+                        </div>
+                        <div class="absolute bottom-[92px] left-1/2 -translate-x-1/2 w-[75%] h-20 bg-gradient-to-b from-pink-200 to-pink-300 rounded-t-xl shadow-md border-b-4 border-pink-400/30">
+                            <i data-lucide="heart" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-rose-500 fill-rose-500"></i>
+                        </div>
+                        <div class="absolute bottom-[168px] left-1/2 -translate-x-1/2 flex gap-5">
+                            <div class="candle relative w-3 h-14 bg-gradient-to-r from-blue-100 to-white rounded-t-sm shadow-sm border border-blue-100">
+                                <div class="flame absolute -top-6 left-1/2 -translate-x-1/2 w-4 h-6 bg-gradient-to-t from-orange-400 via-yellow-300 to-transparent blur-[1px] animate-pulse rounded-t-full rounded-b-md transition-all duration-300 shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                            </div>
+                            <div class="candle relative w-3 h-16 bg-gradient-to-r from-pink-100 to-white rounded-t-sm shadow-sm -mt-2 border border-pink-100">
+                                <div class="flame absolute -top-6 left-1/2 -translate-x-1/2 w-4 h-6 bg-gradient-to-t from-orange-400 via-yellow-300 to-transparent blur-[1px] animate-pulse rounded-t-full rounded-b-md transition-all duration-300 shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                            </div>
+                            <div class="candle relative w-3 h-14 bg-gradient-to-r from-purple-100 to-white rounded-t-sm shadow-sm border border-purple-100">
+                                <div class="flame absolute -top-6 left-1/2 -translate-x-1/2 w-4 h-6 bg-gradient-to-t from-orange-400 via-yellow-300 to-transparent blur-[1px] animate-pulse rounded-t-full rounded-b-md transition-all duration-300 shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="blow-candles-btn" class="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-serif tracking-widest text-base rounded-full hover:shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:scale-105 transition-all duration-300 fade-in-up delay-300">
+                        Candles Bujhao
+                    </button>
+                </div>
+                <div id="confetti-container" class="absolute inset-0 pointer-events-none z-50 overflow-hidden" aria-hidden="true"></div>
+            </div>
+
+            <!-- Page 10: Ending -->
+              <div class="diary-page flex flex-col justify-start md:justify-center items-center text-center bg-gradient-to-b from-rose-50 via-pink-100 to-rose-200" id="page-10">
+            <div id="ending-hearts" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
+            <!-- Added mt-8 for spacing at the top when scrolling, adjusted bottom margin -->
+            <p class="font-sans font-bold text-xs tracking-widest text-rose-900/40 mt-8 mb-6 md:mb-10 fade-in-up uppercase z-10 border-b border-rose-900/20 pb-2">Ek Nayi Shuruaat</p>
+            
+            <!-- Removed mt-10 so it doesn't push down too much, added mb-12 for bottom scroll spacing, adjusted padding for mobile (p-5 sm:p-8) -->
+            <div class="w-full max-w-lg mx-auto px-4 fade-in-up delay-100 z-10 bg-white/40 backdrop-blur-sm p-5 sm:p-8 rounded-3xl shadow-soft border border-white/50 mb-12">
+                <i data-lucide="heart" class="w-12 h-12 mx-auto text-rose-600 fill-rose-600 mb-6 animate-pulse-glow"></i>
+                <h2 class="font-serif text-4xl sm:text-5xl text-rose-900 mb-2 break-words drop-shadow-sm">HAPPY BIRTHDAY</h2>
+            <!-- <div class="diary-page flex flex-col justify-center items-center text-center bg-gradient-to-b from-rose-50 via-pink-100 to-rose-200" id="page-10">
+                <div id="ending-hearts" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
+                <p class="font-sans font-bold text-xs tracking-widest text-rose-900/40 mb-10 fade-in-up uppercase z-10 border-b border-rose-900/20 pb-2">Ek Nayi Shuruaat</p>
+                <div class="w-full max-w-lg mx-auto px-4 fade-in-up delay-100 z-10 bg-white/40 backdrop-blur-sm p-8 rounded-3xl shadow-soft border border-white/50 mt-10 mb-8">
+                    <i data-lucide="heart" class="w-12 h-12 mx-auto text-rose-600 fill-rose-600 mb-6 animate-pulse-glow"></i>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-rose-900 mb-2 break-words drop-shadow-sm">HAPPY BIRTHDAY</h2> -->
+                    <h3 class="font-script text-4xl text-rose-600 mb-8">Tamanna</h3>
+                    <div class="font-handwriting text-2xl sm:text-3xl text-ink/80 space-y-5 mb-10 leading-snug text-center">
+                        <p>"Kahaani yahan khatam nahi hoti..."</p>
+                        <p class="text-rose-700">Ye toh sirf humari nayi shuruaat ka pehla lafz hai. ❤️</p>
+                        <div class="my-8 px-4 py-5 rounded-3xl bg-white/60 border border-rose-200 shadow-sm">
+                            <p class="text-2xl sm:text-3xl leading-loose text-rose-900 font-arabic">
+                                وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا
+                                لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+                            </p>
+                            <p class="text-base sm:text-lg text-gray-600 mt-3 font-serif italic">
+                                "اور اُس کی نشانیوں میں سے یہ ہے کہ اُس نے تمہارے لیے تم ہی میں سے
+                                جوڑے بنائے تاکہ تم اُن سے سکون حاصل کرو، اور تمہارے درمیان
+                                محبت اور رحمت پیدا کر دی۔"
+                            </p>
+                            <p class="text-sm text-rose-600 mt-3">— سورۃ الروم، 30:21</p>
+                        </div>
+                        <p class="text-rose-700">Aur ab tum apni 19th birthday ke baad, meri nazron mein pehle se bhi zyada khoobsurat lagti ho. 🌸</p>
+                        <p class="text-xl sm:text-2xl text-gray-600">19 saal ki tum... aur tumhari muskurahat, meri kahaani ka sabse khoobsurat hissa. ✨</p>
+                        <div class="relative mt-10 py-8 px-3">
+                            <div class="flex items-center justify-center gap-3 sm:gap-6">
+                                <div class="flex flex-col items-center min-w-[80px]">
+                                    <div class="text-3xl animate-pulse">❤️</div>
+                                    <span class="text-lg sm:text-xl text-rose-800 font-semibold">Sonipat</span>
+                                    <span class="text-xs text-gray-500">Yahan se...</span>
+                                </div>
+                                <div class="flex-1 max-w-[220px] relative h-20">
+                                    <svg viewBox="0 0 300 100" class="w-full h-full overflow-visible" fill="none">
+                                        <path d="M10 70 C45 10, 80 10, 110 50 C140 90, 165 90, 195 50 C225 10, 260 15, 290 65" stroke="#be123c" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
+                                        <text x="70" y="28" font-size="18">♡</text>
+                                        <text x="142" y="78" font-size="18">♡</text>
+                                        <text x="215" y="30" font-size="18">♡</text>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col items-center min-w-[80px]">
+                                    <div class="text-3xl animate-pulse">💗</div>
+                                    <span class="text-lg sm:text-xl text-rose-800 font-semibold">Badli</span>
+                                    <span class="text-xs text-gray-500">...tum tak</span>
+                                </div>
+                            </div>
+                            <p class="text-base sm:text-lg text-rose-600 mt-5">Do shehar... ek raasta... aur beech mein sirf mohabbat. ❤️</p>
+                        </div>
+                    </div>
+                    <button id="replay-btn" class="flex items-center gap-2 mx-auto px-6 py-2 bg-white/60 rounded-full text-rose-800 font-serif text-sm tracking-widest hover:bg-white hover:shadow-md transition-all">
+                        Phir Se Dekho <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div id="diary-nav">
+                <button id="prev-page" class="nav-btn" disabled>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i> Peeche
+                </button>
+                <div class="flex flex-col items-center">
+                    <i data-lucide="flower" class="w-4 h-4 text-pink-400 mb-1 animate-spin-slow"></i>
+                    <div class="font-sans text-[10px] sm:text-xs font-semibold tracking-[0.2em] text-pink-900/60 uppercase">
+                        <!-- Total Page Count Fixed to 10 -->
+                        Safha <span id="current-page-num" class="text-pink-600 font-bold text-sm">1</span> / 10
+                    </div>
+                </div>
+                <button id="next-page" class="nav-btn">
+                    Aage <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // ======== COUNTDOWN LOGIC (15 Aug 2026 12:00 AM) ========
+            // FIX: Year updated to 2026 so countdown works properly from current date
+            const targetDate = new Date(2026, 7, 15, 0, 0, 0); 
+            const cdH = document.getElementById('cd-h');
+            const cdM = document.getElementById('cd-m');
+            const cdS = document.getElementById('cd-s');
+
+            function updateCountdown() {
+                const now = new Date();
+                let diff = targetDate - now;
+                if (diff < 0) diff = 0; // Stays at 00:00:00 if date has passed
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                cdH.textContent = String(hours).padStart(2, '0');
+                cdM.textContent = String(mins).padStart(2, '0');
+                cdS.textContent = String(secs).padStart(2, '0');
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // ======== TAP 10 TIMES ON COUNTDOWN TO UNLOCK ========
+            let tapCount = 0;
+            const countdownSection = document.getElementById('countdown-section');
+            const tapCounter = document.getElementById('tap-counter');
+            const prankBtn = document.getElementById('prank-open-btn');
+            const coverSection = document.getElementById('cover-section');
+            const diaryCover = document.getElementById('diary-cover');
+            let secretOpened = false;
+
+            countdownSection.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (secretOpened) return;
+                tapCount++;
+                tapCounter.textContent = `tap ${tapCount}/10`;
+                if (tapCount >= 10) {
+                    secretOpened = true;
+                    tapCounter.textContent = '✨ Unlocked! ✨';
+                    openDiaryAction();
+                    tapCount = 0;
+                }
+            });
+
+            // Prank button: just shakes
+            prankBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                prankBtn.style.transform = 'translateX(20px)';
+                setTimeout(() => prankBtn.style.transform = 'translateX(-20px)', 150);
+                setTimeout(() => prankBtn.style.transform = 'translateX(10px)', 300);
+                setTimeout(() => prankBtn.style.transform = 'translateX(0px)', 450);
+                prankBtn.style.boxShadow = '0 0 40px rgba(212,175,55,0.8)';
+                setTimeout(() => prankBtn.style.boxShadow = '0 0 15px rgba(212,175,55,0.2)', 600);
+            });
+
+            // ======== DIARY OPEN LOGIC ========
+            const bgMusic = document.getElementById('bg-music');
+            const musicToggle = document.getElementById('music-toggle');
+
+            function openDiaryAction() {
+                if (diaryCover.classList.contains('open')) return;
+                diaryCover.classList.add('open');
+                bgMusic.volume = 0.4;
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => updateMusicIcon()).catch(e => console.log("Audio autoplay prevented"));
+                }
+                setTimeout(() => {
+                    musicToggle.classList.remove('opacity-0', 'pointer-events-none');
+                    coverSection.style.opacity = '0';
+                    setTimeout(() => {
+                        coverSection.classList.add('hidden');
+                        coverSection.classList.remove('flex');
+                    }, 1000);
+                }, 1000);
+            }
+
+            diaryCover.addEventListener('click', (e) => {
+                if (e.target === prankBtn || e.target.closest('#prank-open-btn')) return;
+                if (!diaryCover.classList.contains('open')) openDiaryAction();
+            });
+
+            musicToggle.addEventListener('click', () => {
+                if (bgMusic.paused) bgMusic.play();
+                else bgMusic.pause();
+                updateMusicIcon();
+            });
+
+            function updateMusicIcon() {
+                const icon = musicToggle.querySelector('i');
+                if (bgMusic.paused) {
+                    icon.setAttribute('data-lucide', 'music-4');
+                    icon.classList.replace('text-pink-600', 'text-ink/40');
+                } else {
+                    icon.setAttribute('data-lucide', 'music');
+                    icon.classList.replace('text-ink/40', 'text-pink-600');
+                }
+                lucide.createIcons();
+            }
+
+            // ======== GENERATE 14 PHOTOS ========
+            const galleryContainer = document.getElementById('gallery-container');
+            const photoCaptions = [
+                '🌟 Pehli Mulaqat', '💕 Wo Hasi', '✨ Khwab', '🌺 Muskurahat',
+                '💖 Dil Ki Baat', '🌸 Pyaar', '🌙 Chandni Raat', '☀️ Subah',
+                '💫 Sitara', '🌹 Gulab', '💝 Mohabbat', '🌟 Roshni',
+                '💗 Dil', '✨ Chamak' // Sliced down to 14
+            ];
+
+            // Generating exactly 14 photos
+            for (let i = 1; i <= 14; i++) {
+                const div = document.createElement('div');
+                div.className = 'gallery-item'; // UI Fix: Masonry item container
+                
+                const img = document.createElement('img');
+                img.src = `assets/1 (${i}).jpeg`;
+                img.alt = `Memory ${i}`;
+                // object-fit changed to contain/full natural height, no cutting
+                img.className = 'gallery-photo lightbox-trigger';
+                img.loading = 'lazy';
+                img.setAttribute('data-caption', photoCaptions[i-1] || `Yaad ${i}`);
+                
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'flex items-center justify-center bg-gradient-to-br from-pink-100 to-rose-100 text-rose-600 font-handwriting text-xl w-full aspect-square rounded-sm';
+                    fallback.textContent = `📸 ${i}`;
+                    this.parentNode.appendChild(fallback);
+                };
+                
+                div.appendChild(img);
+                galleryContainer.appendChild(div);
+            }
+
+            // ======== PAGE SYSTEM (Fixed to 10 pages) ========
+            const totalPages = 10;
+            let currentPage = 1;
+            const pages = document.querySelectorAll('.diary-page');
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            const pageNumText = document.getElementById('current-page-num');
+
+            // Floating hearts on ending page
+            if (!prefersReducedMotion) {
+                const endingHeartsContainer = document.getElementById('ending-hearts');
+                for (let i = 0; i < 15; i++) {
+                    const heart = document.createElement('i');
+                    heart.setAttribute('data-lucide', 'heart');
+                    heart.className = 'absolute text-rose-400/30 w-6 h-6 animate-float-slow';
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.top = `${Math.random() * 100}%`;
+                    heart.style.animationDelay = `${Math.random() * 5}s`;
+                    heart.style.transform = `scale(${0.5 + Math.random()})`;
+                    endingHeartsContainer.appendChild(heart);
+                }
+                lucide.createIcons({ root: endingHeartsContainer });
+            }
+
+            function updatePages() {
+                pages.forEach((page, index) => {
+                    const pageIndex = index + 1;
+                    const animatedElements = page.querySelectorAll('.fade-in-up');
+                    if (pageIndex === currentPage) {
+                        page.classList.remove('passed');
+                        page.classList.add('active');
+                        setTimeout(() => {
+                            animatedElements.forEach(el => el.classList.add('visible'));
+                        }, 50);
+                    } else if (pageIndex < currentPage) {
+                        page.classList.remove('active');
+                        page.classList.add('passed');
+                        animatedElements.forEach(el => el.classList.remove('visible'));
+                    } else {
+                        page.classList.remove('active');
+                        page.classList.remove('passed');
+                        animatedElements.forEach(el => el.classList.remove('visible'));
+                    }
+                });
+                pageNumText.innerText = currentPage;
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+                const activePageElement = document.getElementById(`page-${currentPage}`);
+                if (activePageElement) activePageElement.scrollTop = 0;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) { currentPage--; updatePages(); }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    if (currentPage === 9 && blowBtn.style.opacity !== '0') {
+                        blowCandlesAction(false);
+                    }
+                    currentPage++;
+                    updatePages();
+                }
+            });
+
+            setTimeout(updatePages, 100);
+
+            // ======== GIFT BOX ========
+            const giftBox = document.getElementById('gift-interaction');
+            const giftHint = document.getElementById('gift-hint');
+            giftBox.addEventListener('click', () => {
+                if (!giftBox.classList.contains('opened')) {
+                    giftBox.classList.add('opened');
+                    giftHint.style.opacity = '0';
+                    if (!prefersReducedMotion) createParticles(giftBox, 'sparkle', 20);
+                }
+            });
+
+            // ======== FACT CARDS ========
+            document.querySelectorAll('.fact-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const isFlipped = card.classList.toggle('flipped');
+                    card.setAttribute('aria-expanded', isFlipped);
+                });
+            });
+
+            // ======== LIGHTBOX ========
+            const lightbox = document.getElementById('lightbox');
+            const lightboxContent = document.getElementById('lightbox-content');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const lightboxClose = document.getElementById('lightbox-close');
+
+            document.querySelectorAll('.lightbox-trigger').forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const imageSrc = trigger.getAttribute('src');
+                    const captionText = trigger.getAttribute('data-caption');
+                    const existingImg = lightboxContent.querySelector('img');
+                    if (existingImg) existingImg.remove();
+
+                    const img = document.createElement('img');
+                    img.src = imageSrc;
+                    // Fix lightbox image constraint to ensure it isn't cropped either
+                    img.className = 'w-auto max-w-full max-h-[70vh] object-contain shadow-photo photo-polaroid p-3 bg-white z-10 rounded-md';
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        const fallback = document.createElement('div');
+                        fallback.className = 'w-full max-w-[400px] aspect-square flex items-center justify-center bg-pink-50 text-pink-600 font-script text-4xl border-4 border-white shadow-photo z-10 rounded-xl';
+                        fallback.textContent = 'Pyari Yaad ❤️';
+                        lightboxContent.insertBefore(fallback, lightboxCaption);
+                    };
+                    lightboxContent.insertBefore(img, lightboxCaption);
+                    lightboxCaption.textContent = captionText;
+                    lightbox.classList.remove('hidden');
+                    lightbox.classList.add('flex');
+                    void lightbox.offsetWidth;
+                    lightbox.classList.add('opacity-100');
+                });
+            });
+
+            function closeLightbox() {
+                lightbox.classList.remove('opacity-100');
+                setTimeout(() => {
+                    lightbox.classList.add('hidden');
+                    lightbox.classList.remove('flex');
+                    const existingFallback = lightboxContent.querySelector('div');
+                    if (existingFallback) existingFallback.remove();
+                }, 400);
+            }
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => { if (e.target === lightbox || e.target === lightboxContent) closeLightbox(); });
+
+            // ======== ENVELOPE ========
+            const envelope = document.getElementById('envelope-container');
+            const openLetterBtn = document.getElementById('open-letter-btn');
+            openLetterBtn.addEventListener('click', () => {
+                envelope.classList.add('open');
+                document.querySelector('.envelope-seal').style.opacity = '0';
+                openLetterBtn.style.opacity = '0';
+                openLetterBtn.style.pointerEvents = 'none';
+            });
+
+            // ======== CAKE CANDLES ========
+            const blowBtn = document.getElementById('blow-candles-btn');
+            const flames = document.querySelectorAll('.flame');
+
+            function blowCandlesAction(autoGoNext = true) {
+                flames.forEach((flame, index) => {
+                    setTimeout(() => {
+                        flame.style.opacity = '0';
+                        flame.style.transform = 'scale(0)';
+                        if (!prefersReducedMotion) createSmoke(flame.parentElement);
+                    }, index * 200);
+                });
+                blowBtn.style.opacity = '0';
+                blowBtn.style.transform = 'translateY(20px)';
+                blowBtn.style.pointerEvents = 'none';
+                if (autoGoNext) {
+                    setTimeout(() => {
+                        if (!prefersReducedMotion) createConfetti();
+                        setTimeout(() => {
+                            currentPage = 10; // Fixed from 11 to 10
+                            updatePages();
+                        }, 800);
+                    }, 1200);
+                }
+            }
+
+            blowBtn.addEventListener('click', () => blowCandlesAction(true));
+
+            // ======== PARTICLES / CONFETTI HELPERS ========
+            function createParticles(container, type, count) {
+                const colors = ['#F472B6', '#FCD34D', '#A78BFA', '#34D399'];
+                for (let i = 0; i < count; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    p.style.width = '6px';
+                    p.style.height = '6px';
+                    p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    p.style.boxShadow = `0 0 5px ${p.style.backgroundColor}`;
+                    p.style.left = '50%';
+                    p.style.top = '40%';
+                    const tx = (Math.random() * 150 - 75) + 'px';
+                    const ty = (Math.random() * -150 - 50) + 'px';
+                    p.animate([
+                        { transform: 'translate(0,0) scale(1)', opacity: 1 },
+                        { transform: `translate(${tx}, ${ty}) scale(0) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                    ], { duration: 1000 + Math.random() * 1000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' });
+                    container.appendChild(p);
+                    setTimeout(() => p.remove(), 2500);
+                }
+            }
+
+            function createSmoke(candleEl) {
+                const smoke = document.createElement('div');
+                smoke.style.position = 'absolute';
+                smoke.style.top = '-10px';
+                smoke.style.left = '50%';
+                smoke.style.width = '6px';
+                smoke.style.height = '15px';
+                smoke.style.backgroundColor = 'rgba(200,200,200,0.6)';
+                smoke.style.borderRadius = '50%';
+                smoke.style.filter = 'blur(3px)';
+                candleEl.appendChild(smoke);
+                smoke.animate([
+                    { transform: 'translate(-50%, 0) scale(1)', opacity: 0.8 },
+                    { transform: 'translate(-50%, -40px) scale(4)', opacity: 0 }
+                ], { duration: 1500, easing: 'ease-out', fill: 'forwards' });
+                setTimeout(() => smoke.remove(), 1500);
+            }
+
+            function createConfetti() {
+                const colors = ['#F43F5E', '#FBBF24', '#818CF8', '#34D399', '#F472B6'];
+                const container = document.getElementById('confetti-container');
+                const count = window.innerWidth < 640 ? 50 : 100;
+                for (let i = 0; i < count; i++) {
+                    const conf = document.createElement('div');
+                    conf.style.position = 'absolute';
+                    conf.style.width = Math.random() > 0.5 ? '10px' : '7px';
+                    conf.style.height = Math.random() > 0.5 ? '10px' : '20px';
+                    conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    conf.style.left = Math.random() * 100 + '%';
+                    conf.style.top = '-20px';
+                    if (Math.random() > 0.6) conf.style.borderRadius = '50%';
+                    container.appendChild(conf);
+                    const duration = 2500 + Math.random() * 3500;
+                    conf.animate([
+                        { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 1 },
+                        { transform: `translate3d(${Math.random()*300 - 150}px, 100vh, 0) rotate(${Math.random()*1080}deg)`, opacity: 0 }
+                    ], { duration: duration, easing: 'cubic-bezier(.37,0,.63,1)', fill: 'forwards' });
+                    setTimeout(() => conf.remove(), duration);
+                }
+            }
+
+            // ======== REPLAY ========
+            const replayBtn = document.getElementById('replay-btn');
+            replayBtn.addEventListener('click', () => {
+                coverSection.classList.remove('hidden');
+                coverSection.classList.add('flex');
+                void coverSection.offsetWidth;
+                coverSection.style.opacity = '1';
+                diaryCover.classList.remove('open');
+                secretOpened = false;
+                tapCounter.textContent = 'tap 0/10';
+                setTimeout(() => {
+                    currentPage = 1;
+                    updatePages();
+                    giftBox.classList.remove('opened');
+                    giftHint.style.opacity = '1';
+                    document.querySelectorAll('.fact-card.flipped').forEach(card => {
+                        card.classList.remove('flipped');
+                        card.setAttribute('aria-expanded', 'false');
+                    });
+                    envelope.classList.remove('open');
+                    document.querySelector('.envelope-seal').style.opacity = '1';
+                    openLetterBtn.style.opacity = '1';
+                    openLetterBtn.style.pointerEvents = 'auto';
+                    flames.forEach(f => {
+                        f.style.opacity = '1';
+                        f.style.transform = 'scale(1)';
+                    });
+                    blowBtn.style.opacity = '1';
+                    blowBtn.style.transform = 'translateY(0)';
+                    blowBtn.style.pointerEvents = 'auto';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
