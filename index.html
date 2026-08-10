@@ -953,7 +953,7 @@
                 if (secretOpened) return;
                 tapCount++;
                 tapCounter.textContent = `tap ${tapCount}/10`;
-                if (tapCount >= 50) {
+                if (tapCount >= 10) {
                     secretOpened = true;
                     tapCounter.textContent = '✨ Unlocked! ✨';
                     openDiaryAction();
