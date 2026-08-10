@@ -1036,7 +1036,7 @@
                 img.alt = `Memory ${i}`;
                 // object-fit changed to contain/full natural height, no cutting
                 img.className = 'gallery-photo lightbox-trigger';
-                img.loading = 'lazy';
+                img.loading = 'eager';
                 img.setAttribute('data-caption', photoCaptions[i-1] || `Yaad ${i}`);
                 
                 img.onerror = function() {
