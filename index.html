@@ -962,15 +962,19 @@
             });
 
             // Prank button: just shakes
+            // prankBtn.addEventListener('click', (e) => {
+            //     e.stopPropagation();
+            //     prankBtn.style.transform = 'translateX(20px)';
+            //     setTimeout(() => prankBtn.style.transform = 'translateX(-20px)', 150);
+            //     setTimeout(() => prankBtn.style.transform = 'translateX(10px)', 300);
+            //     setTimeout(() => prankBtn.style.transform = 'translateX(0px)', 450);
+            //     prankBtn.style.boxShadow = '0 0 40px rgba(212,175,55,0.8)';
+            //     setTimeout(() => prankBtn.style.boxShadow = '0 0 15px rgba(212,175,55,0.2)', 600);
+            // });
             prankBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                prankBtn.style.transform = 'translateX(20px)';
-                setTimeout(() => prankBtn.style.transform = 'translateX(-20px)', 150);
-                setTimeout(() => prankBtn.style.transform = 'translateX(10px)', 300);
-                setTimeout(() => prankBtn.style.transform = 'translateX(0px)', 450);
-                prankBtn.style.boxShadow = '0 0 40px rgba(212,175,55,0.8)';
-                setTimeout(() => prankBtn.style.boxShadow = '0 0 15px rgba(212,175,55,0.2)', 600);
-            });
+    e.stopPropagation();
+    openDiaryAction();
+});
 
             // ======== DIARY OPEN LOGIC ========
             const bgMusic = document.getElementById('bg-music');
