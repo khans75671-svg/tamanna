@@ -456,8 +456,8 @@
                     <span class="text-pink-300/50 text-2xl self-center">:</span>
                     <span class="countdown-digit" id="cd-s">00</span>
                 </div>
-                <p class="font-sans text-[10px] tracking-[0.2em] text-pink-300/40 mt-1 uppercase">mere jaan ke liye</p>
-                <div id="tap-counter" class="tap-counter text-pink-300/30 mt-1">tap 0/10</div>
+                <!-- <p class="font-sans text-[10px] tracking-[0.2em] text-pink-300/40 mt-1 uppercase">mere jaan ke liye</p> -->
+                <!-- <div id="tap-counter" class="tap-counter text-pink-300/30 mt-1">tap 0/10</div> -->
             </div>
 
             <button id="prank-open-btn" class="relative z-10 px-6 py-2.5 bg-transparent border border-romantic-gold/60 text-romantic-gold font-serif tracking-widest text-xs uppercase hover:bg-romantic-gold hover:text-[#3B0918] transition-all duration-500 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-romantic-gold focus:ring-offset-2 focus:ring-offset-[#3B0918] mt-2">
@@ -494,7 +494,7 @@
                         </div>
                         <div class="washi-tape washi-pink w-28 -top-3 left-1/2 -translate-x-1/2 -rotate-2"></div>
                         <div class="img-wrapper aspect-[4/5] rounded overflow-hidden">
-                            <img src="assets/1 (1).jpeg" alt="Memory" class="lightbox-trigger object-cover w-full h-full" data-caption="Meri duniya tumse shuru, tumpe khatam." onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                            <img src="assets/1%20(1).jpeg" alt="Memory" class="lightbox-trigger object-cover w-full h-full" data-caption="Meri duniya tumse shuru, tumpe khatam." onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
                             <div class="fallback-placeholder hidden">Tamanna ❤️</div>
                         </div>
                         <p class="font-script text-2xl text-center mt-4 text-pink-500">meri zindagi...</p>
@@ -962,20 +962,19 @@
             });
 
             // Prank button: just shakes
-            // prankBtn.addEventListener('click', (e) => {
-            //     e.stopPropagation();
-            //     prankBtn.style.transform = 'translateX(20px)';
-            //     setTimeout(() => prankBtn.style.transform = 'translateX(-20px)', 150);
-            //     setTimeout(() => prankBtn.style.transform = 'translateX(10px)', 300);
-            //     setTimeout(() => prankBtn.style.transform = 'translateX(0px)', 450);
-            //     prankBtn.style.boxShadow = '0 0 40px rgba(212,175,55,0.8)';
-            //     setTimeout(() => prankBtn.style.boxShadow = '0 0 15px rgba(212,175,55,0.2)', 600);
-            // });
             prankBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    openDiaryAction();
-});
-
+                e.stopPropagation();
+                prankBtn.style.transform = 'translateX(20px)';
+                setTimeout(() => prankBtn.style.transform = 'translateX(-20px)', 150);
+                setTimeout(() => prankBtn.style.transform = 'translateX(10px)', 300);
+                setTimeout(() => prankBtn.style.transform = 'translateX(0px)', 450);
+                prankBtn.style.boxShadow = '0 0 40px rgba(212,175,55,0.8)';
+                setTimeout(() => prankBtn.style.boxShadow = '0 0 15px rgba(212,175,55,0.2)', 600);
+            });
+// prankBtn.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     openDiaryAction();
+// });
             // ======== DIARY OPEN LOGIC ========
             const bgMusic = document.getElementById('bg-music');
             const musicToggle = document.getElementById('music-toggle');
@@ -1040,7 +1039,7 @@
                 img.alt = `Memory ${i}`;
                 // object-fit changed to contain/full natural height, no cutting
                 img.className = 'gallery-photo lightbox-trigger';
-                img.loading = 'eager';
+                img.loading = 'lazy';
                 img.setAttribute('data-caption', photoCaptions[i-1] || `Yaad ${i}`);
                 
                 img.onerror = function() {
