@@ -918,48 +918,100 @@
 
             // ======== COUNTDOWN LOGIC (15 Aug 2026 12:00 AM) ========
             // FIX: Year updated to 2026 so countdown works properly from current date
-            const targetDate = new Date(2026, 7, 15, 0, 0, 0); 
+            // const targetDate = new Date(2026, 7, 15, 0, 0, 0); 
+            const targetDate = new Date(Date.now() + 10000);
             const cdH = document.getElementById('cd-h');
             const cdM = document.getElementById('cd-m');
             const cdS = document.getElementById('cd-s');
 
+            // function updateCountdown() {
+            //     const now = new Date();
+            //     let diff = targetDate - now;
+            //     if (diff < 0) diff = 0; // Stays at 00:00:00 if date has passed
+                
+            //     const hours = Math.floor(diff / (1000 * 60 * 60));
+            //     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            //     const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                
+            //     cdH.textContent = String(hours).padStart(2, '0');
+            //     cdM.textContent = String(mins).padStart(2, '0');
+            //     cdS.textContent = String(secs).padStart(2, '0');
+            // }
             function updateCountdown() {
-                const now = new Date();
-                let diff = targetDate - now;
-                if (diff < 0) diff = 0; // Stays at 00:00:00 if date has passed
-                
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                cdH.textContent = String(hours).padStart(2, '0');
-                cdM.textContent = String(mins).padStart(2, '0');
-                cdS.textContent = String(secs).padStart(2, '0');
-            }
+    const now = new Date();
+    let diff = targetDate - now;
+
+    if (diff <= 0) {
+        diff = 0;
+
+        countdownFinished = true;
+
+        cdH.textContent = '00';
+        cdM.textContent = '00';
+        cdS.textContent = '00';
+
+        if (tapCounter) {
+            tapCounter.textContent = '✨ Ab Diary kholo ✨';
+        }
+
+        countdownSection.style.cursor = 'pointer';
+
+        return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    cdH.textContent = String(hours).padStart(2, '0');
+    cdM.textContent = String(mins).padStart(2, '0');
+    cdS.textContent = String(secs).padStart(2, '0');
+}
+            
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
             // ======== TAP 10 TIMES ON COUNTDOWN TO UNLOCK ========
-            let tapCount = 0;
-            const countdownSection = document.getElementById('countdown-section');
-            const tapCounter = document.getElementById('tap-counter');
-            const prankBtn = document.getElementById('prank-open-btn');
-            const coverSection = document.getElementById('cover-section');
-            const diaryCover = document.getElementById('diary-cover');
-            let secretOpened = false;
+            // let tapCount = 0;
+            // const countdownSection = document.getElementById('countdown-section');
+            // const tapCounter = document.getElementById('tap-counter');
+            // const prankBtn = document.getElementById('prank-open-btn');
+            // const coverSection = document.getElementById('cover-section');
+            // const diaryCover = document.getElementById('diary-cover');
+            // let secretOpened = false;
 
-            countdownSection.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (secretOpened) return;
-                tapCount++;
-                tapCounter.textContent = `tap ${tapCount}/10`;
-                if (tapCount >= 10) {
-                    secretOpened = true;
-                    tapCounter.textContent = '✨ Unlocked! ✨';
-                    openDiaryAction();
-                    tapCount = 0;
-                }
-            });
+            // countdownSection.addEventListener('click', (e) => {
+            //     e.stopPropagation();
+            //     if (secretOpened) return;
+            //     tapCount++;
+            //     tapCounter.textContent = `tap ${tapCount}/10`;
+            //     if (tapCount >= 10) {
+            //         secretOpened = true;
+            //         tapCounter.textContent = '✨ Unlocked! ✨';
+            //         openDiaryAction();
+            //         tapCount = 0;
+            //     }
+            // });
+            // ======== COUNTDOWN COMPLETE → CLICK TO OPEN ========
+const countdownSection = document.getElementById('countdown-section');
+const tapCounter = document.getElementById('tap-counter');
+const prankBtn = document.getElementById('prank-open-btn');
+const coverSection = document.getElementById('cover-section');
+const diaryCover = document.getElementById('diary-cover');
+
+let countdownFinished = false;
+
+
+// Countdown khatam hone ke baad hi click kaam karega
+countdownSection.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (!countdownFinished) {
+        return;
+    }
+
+    openDiaryAction();
+});
 
             // Prank button: just shakes
             prankBtn.addEventListener('click', (e) => {
